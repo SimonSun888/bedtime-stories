@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>丑小鸭和春天的约定 - 睡前故事</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Serif SC', 'SimSun', 'STSong', serif;
+            background: linear-gradient(180deg, #fef9e7 0%, #fdebd0 30%, #fadbd8 60%, #e8daef 100%);
+            min-height: 100vh;
+            color: #3e2723;
+            line-height: 2;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 顶部星空装饰 */
+        .stars-header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            position: relative;
+        }
+        .stars-header::before {
+            content: '✦ ✦ ✦ ✦ ✦';
+            display: block;
+            font-size: 14px;
+            letter-spacing: 12px;
+            color: #d4a574;
+            margin-bottom: 12px;
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #5d4037;
+            margin-bottom: 6px;
+            letter-spacing: 3px;
+        }
+        .subtitle {
+            font-size: 0.95rem;
+            color: #a1887f;
+            font-weight: 400;
+        }
+
+        /* 配图区域 */
+        .illustration {
+            text-align: center;
+            margin: 24px 0 30px;
+            position: relative;
+        }
+        .illustration img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(62, 39, 35, 0.15), 0 2px 8px rgba(62, 39, 35, 0.08);
+            transition: transform 0.3s ease;
+        }
+        .illustration img:hover {
+            transform: scale(1.02);
+        }
+        .illustration::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 12px;
+            background: radial-gradient(ellipse, rgba(62,39,35,0.1) 0%, transparent 70%);
+        }
+
+        /* 音频控制栏 */
+        .audio-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 14px 28px;
+            margin: 20px 0 36px;
+            box-shadow: 0 4px 20px rgba(62,39,35,0.08);
+            flex-wrap: wrap;
+        }
+
+        .btn-play {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #f8c291, #e55039);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(229, 80, 57, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-play:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(229, 80, 57, 0.4);
+        }
+        .btn-play:active { transform: scale(0.95); }
+        .btn-play.playing {
+            background: linear-gradient(135deg, #78e08f, #38ada9);
+            box-shadow: 0 4px 12px rgba(56, 173, 169, 0.3);
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: #8d6e63;
+        }
+        .speed-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid #d7ccc8;
+            background: white;
+            color: #795548;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 700;
+        }
+        .speed-btn:hover, .speed-btn.active {
+            background: #795548;
+            color: white;
+            border-color: #795548;
+        }
+
+        .progress-text {
+            font-size: 0.8rem;
+            color: #a1887f;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* 故事正文 */
+        .story-section {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 24px;
+            padding: 40px 36px;
+            box-shadow: 0 4px 24px rgba(62,39,35,0.06);
+            margin-bottom: 24px;
+        }
+
+        .story-section p {
+            text-indent: 2em;
+            margin-bottom: 1.2em;
+            font-size: 1.08rem;
+            letter-spacing: 0.5px;
+        }
+
+        .story-section .divider {
+            text-align: center;
+            color: #c9a96e;
+            font-size: 1.2rem;
+            margin: 1.8em 0;
+            letter-spacing: 8px;
+        }
+
+        .story-section .dialogue {
+            color: #6d4c41;
+            font-style: italic;
+        }
+
+        .story-section .highlight {
+            color: #e55039;
+            font-weight: 600;
+        }
+
+        /* 寓意卡片 */
+        .moral-card {
+            background: linear-gradient(135deg, #fff8e1, #ffecb3);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin: 24px 0;
+            box-shadow: 0 4px 20px rgba(255, 183, 77, 0.2);
+            border-left: 4px solid #ffb74d;
+            position: relative;
+            overflow: hidden;
+        }
+        .moral-card::before {
+            content: '💡';
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 48px;
+            opacity: 0.2;
+        }
+        .moral-card h3 {
+            color: #e65100;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+        }
+        .moral-card p {
+            font-size: 1.05rem;
+            color: #5d4037;
+            line-height: 2;
+            text-indent: 2em;
+        }
+
+        /* 底部 */
+        .footer {
+            text-align: center;
+            color: #bcaaa4;
+            font-size: 0.8rem;
+            padding: 20px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .title { font-size: 1.5rem; letter-spacing: 1px; }
+            .story-section { padding: 24px 18px; }
+            .story-section p { font-size: 1rem; text-indent: 1.5em; }
+            .audio-bar { padding: 12px 18px; gap: 10px; }
+            .btn-play { width: 40px; height: 40px; font-size: 16px; }
+        }
+
+        /* 打印样式 */
+        @media print {
+            body { background: white; }
+            .audio-bar { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 标题 -->
+        <header class="stars-header">
+            <h1 class="title">丑小鸭和春天的约定</h1>
+            <p class="subtitle">改编自安徒生童话《丑小鸭》· 2026年5月25日</p>
+        </header>
+
+        <!-- 配图 -->
+        <div class="illustration">
+            <img src="story_image_20260525_duckling.png" alt="丑小鸭在春天的池塘边 - 水彩绘本风格插画" />
+        </div>
+
+        <!-- 音频控制 -->
+        <div class="audio-bar" id="audioBar">
+            <button class="btn-play" id="btnPlay" onclick="togglePlay()" title="播放/暂停">▶</button>
+            <div class="speed-control">
+                <button class="speed-btn" data-rate="0.7" onclick="setRate(0.7)">0.7x</button>
+                <button class="speed-btn active" data-rate="0.85" onclick="setRate(0.85)">0.85x</button>
+                <button class="speed-btn" data-rate="1.0" onclick="setRate(1.0)">1x</button>
+            </div>
+            <span class="progress-text" id="progressText">点击播放 ▶</span>
+        </div>
+
+        <!-- 故事正文 -->
+        <article class="story-section">
+            <p>春天的池塘边，鸭妈妈孵出了一窝可爱的小鸭子。</p>
+            <p>黄茸茸的毛，圆滚滚的身子，每一只都像一小团毛茸茸的阳光。它们"叽叽喳喳"地跟着鸭妈妈，一摇一摆地走进池塘，漾开一圈一圈的涟漪。</p>
+            <p>可是，在所有小鸭子中间，有一只和别的小鸭子长得不太一样。它的毛是灰色的，身子也更大一些，走起路来总是慢半拍。</p>
+            <p class="dialogue">"它好丑呀。"一只小鸡路过，歪着脑袋说。</p>
+            <p class="dialogue">"就是就是，灰扑扑的，一点也不像鸭子！"另一只小鸡跟着附和。</p>
+            <p>小灰鸭低下头，看着水面上自己的倒影。水波轻轻晃动，倒影也跟着模糊了。它心想：也许……也许我真的和大家不一样吧。</p>
+
+            <p class="divider">✦ ✦ ✦</p>
+
+            <p>日子一天天过去，小灰鸭总是一个人在池塘的另一边游来游去。</p>
+            <p>它试过和大家一起玩。可是，小鸭子们嫌它游得不够快，小鸡们嫌它走路不够优雅。每当它靠近，那些小动物就会散开，留下一串细碎的笑声。</p>
+            <p class="dialogue">"我是不是永远也交不到朋友了？"小灰鸭望着远处的落日，轻轻地问。</p>
+            <p>池塘边的老柳树摇了摇枝条，一片嫩绿的叶子落在水面上，像一只小小的绿色船。</p>
+            <p class="dialogue">"孩子，"老柳树沙沙地说，"你是一只不一样的鸭子。不一样的鸭子，要走不一样的路。"</p>
+            <p>小灰鸭不太明白，但它记住了这句话。</p>
+
+            <p class="divider">✦ ✦ ✦</p>
+
+            <p>秋天来了，树叶变黄了。小灰鸭离开了熟悉的池塘，顺着一条细细的小河往下游走。它想看看外面的世界，也想看看——自己到底是谁。</p>
+            <p>旅途中，它遇见了很多新朋友。</p>
+            <p>一只白鹭站在浅水里，用长长的喙轻轻梳理羽毛。它看见了小灰鸭，微微一笑说：<span class="dialogue">"你游水真稳呀，像一只小帆船。要来我这里歇歇脚吗？"</span></p>
+            <p class="highlight">小灰鸭的眼睛亮了——这是第一次有人夸它。</p>
+            <p>一只野兔在河岸边啃着草，看见小灰鸭，竖起长耳朵说：<span class="dialogue">"哦，你是我见过走路最认真的鸭子。不急不躁，每一步都很踏实呢。"</span></p>
+            <p class="highlight">小灰鸭的嘴角慢慢翘了起来。</p>
+            <p>还有一只小青蛙，从荷叶上"扑通"跳进水里，溅了小灰鸭一脸水花，然后哈哈大笑：<span class="dialogue">"对不起对不起！但是你看，你的羽毛沾了水珠，亮晶晶的，像披了一身小星星！"</span></p>
+            <p class="highlight">小灰鸭终于笑了。</p>
+
+            <p class="divider">✦ ✦ ✦</p>
+
+            <p>冬天过去了。一个清晨，小灰鸭醒来，觉得身体变得很轻很轻。它抖了抖翅膀，发现翅膀变得又宽又大。它低下头看水面——倒影里是一只雪白的大鸟，长长的脖颈弯成优美的弧线。</p>
+            <p>那不是鸭子，那是一只天鹅。</p>
+            <p class="dialogue">"原来……我从来都不是丑小鸭。"</p>
+            <p>它张开翅膀，第一次飞了起来。风吹过它的羽毛，阳光照在它雪白的背上。它飞过池塘，飞过柳树，飞过它曾经独自游过的那条小河。</p>
+            <p class="dialogue">"快看！好漂亮的天鹅啊！"</p>
+            <p>小天鹅微微笑了。它没有骄傲，也没有停下来炫耀。它只是觉得：原来——真正的美丽，不是一出生就能看到的东西。</p>
+
+            <p class="divider">✦ ✦ ✦</p>
+
+            <p>从那以后，每年春天，小天鹅都会飞回那个池塘。它记得老柳树说的话，记得白鹭的善意，记得野兔的鼓励，记得青蛙不小心溅起的水花。</p>
+            <p>所以，当池塘边又出现了一只怯生生的小动物——小天鹅总会第一个走过去。</p>
+            <p class="dialogue">"你好呀，你也是一只和别的小动物不一样的小家伙吗？不一样的动物，要走不一样的路。而这条路，我陪你一起走。"</p>
+            <p>池塘的水面上，倒映着一只白天鹅和一只小小动物的影子，肩并肩，走向春天的深处。</p>
+        </article>
+
+        <!-- 寓意 -->
+        <div class="moral-card">
+            <h3>🌙 故事的寓意</h3>
+            <p>每个人都有自己的成长节奏，真正的美丽不在外表，而在内心的善良与勇气。就像丑小鸭一样，也许今天的你和别人不太一样，但那不是因为你不美好——而是因为你还在成长。那些让你和别人"不一样"的地方，也许正是你未来最闪亮的部分。</p>
+            <p>不要着急，也不要灰心。春天会来，你也会变成最美的自己。而在那之前——记得善意地对待身边的每一只"丑小鸭"，因为你的一句鼓励，可能就是别人春天里最温暖的阳光。</p>
+        </div>
+
+        <footer class="footer">
+            <p>🌛 晚安，好梦 🌛</p>
+        </footer>
+    </div>
+
+    <script>
+        // Web Speech API - 朗读功能
+        let synth = window.speechSynthesis;
+        let utterance = null;
+        let isPlaying = false;
+        let currentRate = 0.85;
+        let isPaused = false;
+        let pausedCharIndex = 0;
+
+        const btnPlay = document.getElementById('btnPlay');
+        const progressText = document.getElementById('progressText');
+
+        // 获取故事纯文本
+        function getStoryText() {
+            const storySection = document.querySelector('.story-section');
+            return storySection ? storySection.innerText.replace(/\n+/g, '。').replace(/✦ ✦ ✦/g, '') : '';
+        }
+
+        function togglePlay() {
+            if (isPlaying) {
+                if (synth.speaking && !synth.paused) {
+                    // 暂停
+                    synth.pause();
+                    isPaused = true;
+                    btnPlay.textContent = '▶';
+                    btnPlay.classList.remove('playing');
+                    progressText.textContent = '已暂停 ⏸';
+                } else if (synth.paused) {
+                    // 继续
+                    synth.resume();
+                    isPaused = false;
+                    btnPlay.textContent = '⏸';
+                    btnPlay.classList.add('playing');
+                    progressText.textContent = '朗读中 📖';
+                } else {
+                    stopPlay();
+                }
+            } else {
+                startPlay();
+            }
+        }
+
+        function startPlay() {
+            synth.cancel();
+
+            const text = getStoryText();
+            if (!text) {
+                progressText.textContent = '无文本可读';
+                return;
+            }
+
+            utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = currentRate;
+            utterance.pitch = 1.05;
+            utterance.volume = 1;
+
+            // 尝试选择中文语音
+            const voices = synth.getVoices();
+            const zhVoice = voices.find(v => v.lang.startsWith('zh-CN') || v.lang.startsWith('zh-TW') || v.lang.startsWith('zh-HK'));
+            if (zhVoice) {
+                utterance.voice = zhVoice;
+            }
+
+            utterance.onstart = () => {
+                isPlaying = true;
+                isPaused = false;
+                btnPlay.textContent = '⏸';
+                btnPlay.classList.add('playing');
+                progressText.textContent = '朗读中 📖';
+            };
+
+            utterance.onend = () => {
+                isPlaying = false;
+                isPaused = false;
+                btnPlay.textContent = '▶';
+                btnPlay.classList.remove('playing');
+                progressText.textContent = '朗读完毕 ✓';
+            };
+
+            utterance.onerror = (e) => {
+                if (e.error !== 'canceled' && e.error !== 'interrupted') {
+                    console.error('Speech error:', e);
+                    isPlaying = false;
+                    isPaused = false;
+                    btnPlay.textContent = '▶';
+                    btnPlay.classList.remove('playing');
+                    progressText.textContent = '朗读出错，请重试';
+                }
+            };
+
+            utterance.onpause = () => {
+                progressText.textContent = '已暂停 ⏸';
+            };
+
+            utterance.onresume = () => {
+                progressText.textContent = '朗读中 📖';
+            };
+
+            synth.speak(utterance);
+        }
+
+        function stopPlay() {
+            synth.cancel();
+            isPlaying = false;
+            isPaused = false;
+            btnPlay.textContent = '▶';
+            btnPlay.classList.remove('playing');
+            progressText.textContent = '点击播放 ▶';
+        }
+
+        function setRate(rate) {
+            currentRate = rate;
+
+            // 更新UI
+            document.querySelectorAll('.speed-btn').forEach(btn => {
+                btn.classList.toggle('active', parseFloat(btn.dataset.rate) === rate);
+            });
+
+            // 如果正在播放，重建utterance
+            if (isPlaying && synth.speaking) {
+                synth.cancel();
+                startPlay();
+            }
+        }
+
+        // 预加载voices
+        synth.getVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = () => {
+                synth.getVoices();
+            };
+        }
+
+        // 页面卸载时停止朗读
+        window.addEventListener('beforeunload', () => {
+            synth.cancel();
+        });
+
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && e.target === document.body) {
+                e.preventDefault();
+                togglePlay();
+            }
+        });
+    </script>
+</body>
+</html>
