@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>青蛙王子与金色小球 - 睡前故事</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Serif SC', 'STSong', 'SimSun', 'Songti SC', serif;
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 30%, #fff9c4 60%, #fff8e1 100%);
+    min-height: 100vh;
+    color: #3e2723;
+    line-height: 2;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 2px dashed #a5d6a7;
+  }
+  .header .emoji {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 12px;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .header h1 {
+    font-size: 2em;
+    color: #2e7d32;
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 2px rgba(46,125,50,0.15);
+  }
+  .header .subtitle {
+    font-size: 1em;
+    color: #6d8c6d;
+    font-style: italic;
+  }
+  .story-image {
+    text-align: center;
+    margin: 28px 0;
+  }
+  .story-image img {
+    max-width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    border: 4px solid #fff;
+  }
+  .audio-bar {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin: 24px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e0e0e0;
+  }
+  .audio-bar button {
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-family: inherit;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .audio-bar button:hover {
+    background: #388e3c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(76,175,80,0.3);
+  }
+  .audio-bar button.pause {
+    background: #ff9800;
+  }
+  .audio-bar button.pause:hover {
+    background: #f57c00;
+  }
+  .audio-bar label {
+    font-size: 0.9em;
+    color: #666;
+  }
+  .audio-bar input[type="range"] {
+    accent-color: #4caf50;
+    width: 100px;
+  }
+  .audio-bar .speed-display {
+    font-size: 0.85em;
+    color: #888;
+    min-width: 60px;
+  }
+  .story-content {
+    background: rgba(255,255,255,0.85);
+    border-radius: 20px;
+    padding: 40px 36px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    border: 1px solid rgba(165,214,167,0.3);
+    backdrop-filter: blur(4px);
+  }
+  .story-content p {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    text-indent: 2em;
+  }
+  .divider {
+    text-align: center;
+    margin: 28px 0;
+    color: #a5d6a7;
+    font-size: 1.2em;
+    letter-spacing: 8px;
+  }
+  .moral-box {
+    background: linear-gradient(135deg, #fff8e1, #fff3e0);
+    border-left: 4px solid #ffb74d;
+    border-radius: 0 16px 16px 0;
+    padding: 24px 28px;
+    margin-top: 32px;
+  }
+  .moral-box h3 {
+    color: #e65100;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+  }
+  .moral-box p {
+    text-indent: 0 !important;
+    color: #5d4037;
+  }
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(165,214,167,0.4);
+    font-size: 0.85em;
+    color: #999;
+  }
+  .footer a {
+    color: #4caf50;
+    text-decoration: none;
+  }
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px 40px; }
+    .story-content { padding: 24px 20px; }
+    .header h1 { font-size: 1.5em; }
+    .audio-bar { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <span class="emoji">🐸</span>
+  <h1>青蛙王子与金色小球</h1>
+  <p class="subtitle">改编自格林童话《青蛙王子》</p>
+</div>
+
+<div class="audio-bar">
+  <button id="playBtn" onclick="toggleNarration()">🔊 听故事</button>
+  <button id="pauseBtn" class="pause" onclick="pauseNarration()" style="display:none;">⏸️ 暂停</button>
+  <button id="resumeBtn" onclick="resumeNarration()" style="display:none;">▶️ 继续</button>
+  <button id="stopBtn" onclick="stopNarration()">⏹️ 停止</button>
+  <label for="speedSlider">语速:</label>
+  <input type="range" id="speedSlider" min="0.5" max="2" step="0.1" value="1" oninput="updateSpeed()">
+  <span class="speed-display" id="speedDisplay">1.0x</span>
+</div>
+
+<div class="story-image">
+  <img id="storyImg" src="story_image_20260525_frog.png" alt="青蛙王子与金色小球 - AI水彩绘本插画" onerror="this.style.display='none'">
+</div>
+
+<div class="story-content" id="storyContent">
+
+<p>从前，在一个美丽的王国里，住着一位可爱的小公主。小公主最喜欢做的事情，就是在王宫花园的大池塘边玩耍。</p>
+
+<p>她有一颗特别漂亮的金色小球，每天都会在池塘边抛球玩。金色的小球在阳光下闪闪发光，就像一颗小小的太阳。</p>
+
+<p>可是有一天，意外发生了。小公主抛球的时候用力过猛，金色小球"扑通"一声掉进了深深的池塘里！</p>
+
+<p>"哎呀，我的金球！"小公主急得哭了起来，眼泪一颗颗滚落下来。</p>
+
+<p>就在这时，池塘里传来一个声音："呱呱，小公主，你为什么哭得这么伤心呀？"</p>
+
+<p>小公主低头一看，原来是一只绿色的小青蛙，正蹲在睡莲叶子上，歪着脑袋看着她。</p>
+
+<p>"我的金球掉到水里了，"小公主抽泣着说，"池塘太深了，我拿不回来。"</p>
+
+<p>青蛙眨了眨大眼睛，说："我可以帮你把金球捞上来！但是，你要答应我一件事——让我做你的朋友，和你一起吃饭、一起玩耍，好吗？"</p>
+
+<p>小公主想都没想就答应了："好好好！只要你把金球捞上来，我什么都答应你！"</p>
+
+<p>青蛙"扑通"一声跳进水里，不一会儿，就衔着那颗闪闪发光的金球游了回来。小公主高兴极了，接过金球，转身就跑回了王宫，把青蛙忘得一干二净。</p>
+
+<p>第二天傍晚，小公主正在和国王爸爸一起吃晚饭，突然听到门外传来"呱呱"的叫声。咚咚咚，有人敲门。</p>
+
+<p>小公主打开门一看——是那只青蛙！它仰着头说："小公主，你答应过让我做你的朋友，和我一起吃饭的呀！"</p>
+
+<p>小公主吓了一跳，"砰"地关上了门。</p>
+
+<p>国王看到小公主慌张的样子，问道："孩子，是谁在敲门？"</p>
+
+<p>小公主只好把池塘边发生的事一五一十地告诉了爸爸。</p>
+
+<p>国王听完，慈祥地摸了摸小公主的头，说："我的孩子，答应别人的事情就一定要做到。既然青蛙帮助了你，你就应该遵守诺言。去把门打开，请你的朋友进来吧。"</p>
+
+<p>小公主虽然心里不太情愿，但还是听爸爸的话，打开了门。青蛙跳到餐桌旁，和小公主一起吃了晚餐。</p>
+
+<p>吃完饭后，青蛙又说："小公主，你还答应让我和你一起玩的呀！"</p>
+
+<p>小公主看了看爸爸，国王对她点了点头。小公主于是带着青蛙来到自己的房间，和它玩了一会儿。虽然青蛙看起来黏糊糊的，但小公主发现，它其实很聪明，说话也很有趣。</p>
+
+<p>玩累了，小公主躺在床上准备睡觉。青蛙说："我可以睡在你枕头旁边吗？你答应过的。"</p>
+
+<p>小公主犹豫了一下，但想起爸爸的话，还是把青蛙轻轻放在枕头边。</p>
+
+<p>第二天清晨，当第一缕阳光照进房间时，小公主睁开眼睛——咦？枕头边的青蛙不见了！</p>
+
+<p>站在床边的，是一位穿着绿色衣服的英俊少年，正微笑着看着她。</p>
+
+<p>"谢谢你，小公主。"少年说，"我本来是一位王子，被一个坏女巫施了魔法，变成了青蛙。只有当一个善良的人愿意真心对待我、遵守对我的诺言时，魔法才能被打破。你做到了，你解救了我！"</p>
+
+<p>小公主又惊又喜。从那天起，小公主和王子成了最好的朋友。他们一起在花园里玩耍，一起在池塘边散步。小公主学会了，答应别人的事情，一定要说到做到。</p>
+
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<div class="moral-box">
+  <h3>🌙 今晚的睡前悄悄话</h3>
+  <p>宝贝，你知道吗？小公主一开始并不喜欢那只青蛙，但她听了爸爸的话，遵守了自己的诺言。结果呢？她不仅收获了一位好朋友，还帮王子打破了魔法！</p>
+  <p>所以呀，答应别人的事情就一定要做到，而且不能用外表来判断一个人——说不定那只"青蛙"，其实是很棒的伙伴呢！</p>
+  <p style="margin-top:12px;"><strong>晚安，做个好梦！</strong> 🌟</p>
+</div>
+
+<div class="footer">
+  <p>📖 故事改编自格林童话《青蛙王子》 | 🖼️ AI配图：水彩儿童绘本风格 | 📅 2026年5月25日</p>
+  <p>在 <a href="#" id="ghLink">GitHub Pages</a> 上查看 | 在 <a href="#" id="imaLink">IMA 笔记本</a> 中阅读</p>
+</div>
+
+</div>
+
+<script>
+// Load stored narration state
+let isPaused = false;
+let currentCharIndex = 0;
+let isPlaying = false;
+let currentUtterance = null;
+let speed = 1.0;
+
+function getStoryText() {
+  const content = document.getElementById('storyContent');
+  return content.innerText.trim();
+}
+
+function toggleNarration() {
+  if (isPlaying) {
+    if (isPaused) resumeNarration();
+    else pauseNarration();
+    return;
+  }
+  startNarration();
+}
+
+function startNarration() {
+  const text = getStoryText();
+  if (!text) return;
+  
+  isPlaying = true;
+  isPaused = false;
+  document.getElementById('playBtn').style.display = 'none';
+  document.getElementById('pauseBtn').style.display = 'inline-flex';
+  document.getElementById('resumeBtn').style.display = 'none';
+  
+  speakFromIndex(0);
+}
+
+function speakFromIndex(index) {
+  if (index === 0) {
+    // Speak title first
+    const title = document.querySelector('.header h1').innerText;
+    currentUtterance = new SpeechSynthesisUtterance(title + '。' + getStoryText());
+  } else {
+    currentUtterance = new SpeechSynthesisUtterance(getStoryText().substring(index));
+  }
+  
+  currentUtterance.lang = 'zh-CN';
+  currentUtterance.rate = speed;
+  currentUtterance.pitch = 1.1;
+  
+  currentUtterance.onend = function() {
+    isPlaying = false;
+    document.getElementById('playBtn').style.display = 'inline-flex';
+    document.getElementById('pauseBtn').style.display = 'none';
+    document.getElementById('resumeBtn').style.display = 'none';
+  };
+  
+  currentUtterance.onboundary = function(e) {
+    if (e.charIndex !== undefined) {
+      currentCharIndex = e.charIndex;
+    }
+  };
+  
+  window.speechSynthesis.speak(currentUtterance);
+}
+
+function pauseNarration() {
+  if (!isPlaying || isPaused) return;
+  isPaused = true;
+  window.speechSynthesis.pause();
+  document.getElementById('pauseBtn').style.display = 'none';
+  document.getElementById('resumeBtn').style.display = 'inline-flex';
+}
+
+function resumeNarration() {
+  if (!isPaused) return;
+  isPaused = false;
+  window.speechSynthesis.resume();
+  document.getElementById('resumeBtn').style.display = 'none';
+  document.getElementById('pauseBtn').style.display = 'inline-flex';
+}
+
+function stopNarration() {
+  window.speechSynthesis.cancel();
+  isPlaying = false;
+  isPaused = false;
+  currentCharIndex = 0;
+  document.getElementById('playBtn').style.display = 'inline-flex';
+  document.getElementById('pauseBtn').style.display = 'none';
+  document.getElementById('resumeBtn').style.display = 'none';
+}
+
+function updateSpeed() {
+  speed = parseFloat(document.getElementById('speedSlider').value);
+  document.getElementById('speedDisplay').textContent = speed.toFixed(1) + 'x';
+  if (isPlaying && !isPaused && currentUtterance) {
+    window.speechSynthesis.cancel();
+    speakFromIndex(currentCharIndex);
+  }
+}
+
+// Set GitHub Pages link
+document.getElementById('ghLink').href = 'https://simonsun888.github.io/bedtime-stories/20260525-frog/';
+</script>
+</body>
+</html>
