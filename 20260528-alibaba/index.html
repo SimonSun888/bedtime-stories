@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌙 小阿里和神奇洞穴 · 睡前故事</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: linear-gradient(160deg, #1a0a2e 0%, #2d1b4e 40%, #1a2a4a 100%);
+      min-height: 100vh;
+      font-family: 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+      color: #f5e6c8;
+      overflow-x: hidden;
+    }
+
+    /* 星星背景 */
+    .stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 3s infinite alternate;
+    }
+    @keyframes twinkle {
+      from { opacity: 0.2; transform: scale(1); }
+      to   { opacity: 1;   transform: scale(1.3); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* 月亮装饰 */
+    .moon {
+      text-align: center;
+      font-size: 64px;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 0 20px rgba(255, 215, 100, 0.8));
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: #ffe08a;
+      text-shadow: 0 0 20px rgba(255, 200, 50, 0.7);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .subtitle {
+      text-align: center;
+      color: #c0a8e0;
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+      letter-spacing: 2px;
+    }
+
+    /* 配图 */
+    .story-image {
+      width: 100%;
+      max-width: 500px;
+      display: block;
+      margin: 0 auto 32px;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 30px rgba(255, 180, 50, 0.25);
+      border: 2px solid rgba(255, 200, 80, 0.3);
+    }
+
+    /* 音频控制器 */
+    .audio-player {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,200,80,0.3);
+      border-radius: 50px;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+      backdrop-filter: blur(8px);
+    }
+    .audio-player button {
+      background: linear-gradient(135deg, #f0a500, #e67e22);
+      border: none;
+      color: #fff;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .audio-player button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 16px rgba(240, 165, 0, 0.6);
+    }
+    .audio-label {
+      flex: 1;
+      font-size: 0.9rem;
+      color: #e8d5a0;
+    }
+    .speed-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: #c0a8e0;
+    }
+    .speed-control select {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,200,80,0.4);
+      color: #f5e6c8;
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    /* 故事段落 */
+    .story-body {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 36px 32px;
+      border: 1px solid rgba(255,200,80,0.15);
+      backdrop-filter: blur(4px);
+    }
+    .story-body p {
+      font-size: 1.15rem;
+      line-height: 2.0;
+      margin-bottom: 20px;
+      color: #f0e4c8;
+      text-indent: 2em;
+    }
+    .story-body p:last-child { margin-bottom: 0; }
+
+    /* 段落首字大写 */
+    .chapter-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffd580;
+      letter-spacing: 2px;
+      margin: 28px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chapter-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(255,210,80,0.5), transparent);
+    }
+
+    /* 寓意框 */
+    .moral-box {
+      background: linear-gradient(135deg, rgba(255, 180, 40, 0.15), rgba(200, 100, 200, 0.1));
+      border: 1px solid rgba(255, 200, 80, 0.4);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-top: 36px;
+      text-align: center;
+    }
+    .moral-title {
+      font-size: 1.1rem;
+      color: #ffd580;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .moral-text {
+      font-size: 1.0rem;
+      color: #e8d5a0;
+      line-height: 1.8;
+    }
+
+    /* 页脚 */
+    footer {
+      text-align: center;
+      margin-top: 48px;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="stars" id="stars"></div>
+
+<div class="container">
+  <div class="moon">🌙</div>
+  <h1>小阿里和神奇洞穴</h1>
+  <p class="subtitle">— 一千零一夜 · 改编 —</p>
+
+  <img class="story-image" src="story_image_20260528_alibaba.png" alt="小阿里和神奇洞穴插画">
+
+  <!-- 音频播放器 -->
+  <div class="audio-player">
+    <button id="playBtn" onclick="toggleSpeech()">▶</button>
+    <div class="audio-label" id="audioLabel">点击播放，轻声朗读故事 ✨</div>
+    <div class="speed-control">
+      <span>语速</span>
+      <select id="rateSelect" onchange="updateRate()">
+        <option value="0.7">慢速</option>
+        <option value="0.85" selected>标准</option>
+        <option value="1.0">正常</option>
+        <option value="1.2">快速</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="story-body" id="storyContent">
+
+    <div class="chapter-title">✨ 故事开始啦</div>
+
+    <p>在很久很久以前，在一片金黄色的沙漠边上，住着一个叫阿里的小男孩。阿里家里不富裕，每天和爸爸妈妈一起在集市上卖小东西，虽然生活简单，但一家人总是快快乐乐的。</p>
+
+    <p>阿里最喜欢的事，就是放学后爬上村子旁边的那座小山丘，望着远处绵延的沙漠发呆。他心里常常想："那片沙漠里，会有什么有趣的秘密呢？"</p>
+
+    <div class="chapter-title">🏜️ 神秘的咒语</div>
+
+    <p>一天傍晚，阿里在山丘上玩耍，忽然听到一阵马蹄声。他躲在大石头后面，悄悄向下张望。只见一群穿着黑衣的商人，赶着满载货物的骡子，来到了山腰的一处峭壁前。</p>
+
+    <p>领头的商人走上前，朗声说道："芝麻，开门！"话音刚落，奇迹发生了——峭壁上缓缓裂开一道金光闪闪的大门，里面传来一阵温暖的光芒。商人们把货物搬进去，没多久又全部走了出来，那扇门"轰"的一声，重新合上了。</p>
+
+    <p>阿里睁大了眼睛，心跳得好快。等商人们走远，他鼓起勇气，轻声说出那句话："芝麻，开门！"</p>
+
+    <div class="chapter-title">💎 洞穴里的宝藏</div>
+
+    <p>奇迹再次发生了！那扇金色的门慢慢打开了，里面是一个宽阔的大洞穴。洞里堆满了金灿灿的硬币、闪闪发光的宝石，还有各种各样漂亮的布料和香料。灯光从洞壁上自动亮起，把整个洞穴照得温暖明亮，就像一个藏在地底的魔法城堡。</p>
+
+    <p>"哇……"阿里看得入了迷，小小的眼睛里映着满洞的金光。</p>
+
+    <p>但是阿里没有伸手去拿那些金币宝石。他在洞里四处看了看，忽然发现洞穴最里面有一个小角落，里面放着一只落了灰的破旧篮子。篮子里，静静地躺着一本褪色的旧书——那是一本画满了星星、月亮和图案的故事书。</p>
+
+    <div class="chapter-title">📖 最珍贵的礼物</div>
+
+    <p>阿里轻轻捧起那本书，翻开第一页，里面写着："这本书属于每一个善良又勇敢的孩子，愿它带给你无尽的故事和梦想。"</p>
+
+    <p>阿里的眼眶有些湿润了。他把书放回篮子，认真地抱在怀里，轻声说："芝麻，关门！"那扇金色的门又缓缓合上了，洞穴里的宝藏依然静静等待着。</p>
+
+    <p>阿里跑回家，把故事书的事告诉了爸爸妈妈。爸爸说："能从满是宝藏的地方只拿走一本书，你真是个懂得什么最重要的孩子。"妈妈把阿里抱进怀里，轻轻亲了亲他的额头。</p>
+
+    <div class="chapter-title">🌟 知识比金子更珍贵</div>
+
+    <p>从那以后，阿里每天晚上都会在灯下读那本神奇的故事书。书里的故事越来越多，仿佛永远读不完，每一次翻开都会看到新的故事。渐渐地，阿里成了村子里最会讲故事的孩子，每当他开口讲起那些奇妙的故事，大家都围坐在一起，听得入了迷。</p>
+
+    <p>就连那片沙漠，也好像在月光下微笑着，轻声说："善良的孩子，愿你永远拥有最美丽的梦想。"</p>
+
+    <div class="moral-box">
+      <div class="moral-title">🌙 今晚的小寓意</div>
+      <div class="moral-text">
+        世界上最珍贵的宝藏，不是金币和宝石，<br>
+        而是知识、故事和一颗善良的心。<br>
+        勇敢去探索，但记得选择最有价值的东西带回家。
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    🌙 晚安，愿你拥有最美的梦 &nbsp;|&nbsp; 一千零一夜改编 · 2026年5月28日
+  </footer>
+</div>
+
+<script>
+  // 生成星星
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    star.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      top: ${Math.random() * 100}%;
+      left: ${Math.random() * 100}%;
+      animation-delay: ${Math.random() * 3}s;
+      animation-duration: ${2 + Math.random() * 3}s;
+    `;
+    starsContainer.appendChild(star);
+  }
+
+  // Web Speech API 朗读
+  let utterance = null;
+  let isSpeaking = false;
+  let isPaused = false;
+
+  const storyText = `小阿里和神奇洞穴。根据一千零一夜改编。
+
+在很久很久以前，在一片金黄色的沙漠边上，住着一个叫阿里的小男孩。阿里家里不富裕，每天和爸爸妈妈一起在集市上卖小东西，虽然生活简单，但一家人总是快快乐乐的。
+
+阿里最喜欢的事，就是放学后爬上村子旁边的那座小山丘，望着远处绵延的沙漠发呆。他心里常常想：那片沙漠里，会有什么有趣的秘密呢？
+
+一天傍晚，阿里在山丘上玩耍，忽然听到一阵马蹄声。他躲在大石头后面，悄悄向下张望。只见一群穿着黑衣的商人，赶着满载货物的骡子，来到了山腰的一处峭壁前。
+
+领头的商人走上前，朗声说道：芝麻，开门！话音刚落，奇迹发生了，峭壁上缓缓裂开一道金光闪闪的大门，里面传来一阵温暖的光芒。商人们把货物搬进去，没多久又全部走了出来，那扇门轰的一声，重新合上了。
+
+阿里睁大了眼睛，心跳得好快。等商人们走远，他鼓起勇气，轻声说出那句话：芝麻，开门！
+
+奇迹再次发生了！那扇金色的门慢慢打开了，里面是一个宽阔的大洞穴。洞里堆满了金灿灿的硬币、闪闪发光的宝石，还有各种各样漂亮的布料和香料。灯光从洞壁上自动亮起，把整个洞穴照得温暖明亮，就像一个藏在地底的魔法城堡。
+
+哇，阿里看得入了迷，小小的眼睛里映着满洞的金光。
+
+但是阿里没有伸手去拿那些金币宝石。他在洞里四处看了看，忽然发现洞穴最里面有一个小角落，里面放着一只落了灰的破旧篮子。篮子里，静静地躺着一本褪色的旧书，那是一本画满了星星、月亮和图案的故事书。
+
+阿里轻轻捧起那本书，翻开第一页，里面写着：这本书属于每一个善良又勇敢的孩子，愿它带给你无尽的故事和梦想。
+
+阿里的眼眶有些湿润了。他把书放回篮子，认真地抱在怀里，轻声说：芝麻，关门！那扇金色的门又缓缓合上了，洞穴里的宝藏依然静静等待着。
+
+阿里跑回家，把故事书的事告诉了爸爸妈妈。爸爸说：能从满是宝藏的地方只拿走一本书，你真是个懂得什么最重要的孩子。妈妈把阿里抱进怀里，轻轻亲了亲他的额头。
+
+从那以后，阿里每天晚上都会在灯下读那本神奇的故事书。书里的故事越来越多，仿佛永远读不完，每一次翻开都会看到新的故事。渐渐地，阿里成了村子里最会讲故事的孩子，每当他开口讲起那些奇妙的故事，大家都围坐在一起，听得入了迷。
+
+就连那片沙漠，也好像在月光下微笑着，轻声说：善良的孩子，愿你永远拥有最美丽的梦想。
+
+今晚的小寓意：世界上最珍贵的宝藏，不是金币和宝石，而是知识、故事和一颗善良的心。勇敢去探索，但记得选择最有价值的东西带回家。晚安，小朋友，做个美美的梦吧。`;
+
+  function toggleSpeech() {
+    const btn = document.getElementById('playBtn');
+    const label = document.getElementById('audioLabel');
+
+    if ('speechSynthesis' in window) {
+      if (isSpeaking && !isPaused) {
+        window.speechSynthesis.pause();
+        isPaused = true;
+        btn.textContent = '▶';
+        label.textContent = '已暂停，点击继续 ⏸';
+      } else if (isPaused) {
+        window.speechSynthesis.resume();
+        isPaused = false;
+        btn.textContent = '⏸';
+        label.textContent = '正在朗读故事中… 🌙';
+      } else {
+        utterance = new SpeechSynthesisUtterance(storyText);
+        utterance.lang = 'zh-CN';
+        utterance.rate = parseFloat(document.getElementById('rateSelect').value);
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
+
+        // 选择中文女声（如果可用）
+        const voices = window.speechSynthesis.getVoices();
+        const chineseVoice = voices.find(v =>
+          v.lang.includes('zh') && (v.name.includes('Female') || v.name.includes('女') || v.name.includes('Ting'))
+        ) || voices.find(v => v.lang.includes('zh'));
+        if (chineseVoice) utterance.voice = chineseVoice;
+
+        utterance.onend = () => {
+          isSpeaking = false;
+          isPaused = false;
+          btn.textContent = '▶';
+          label.textContent = '朗读完毕，晚安 🌙';
+        };
+
+        window.speechSynthesis.speak(utterance);
+        isSpeaking = true;
+        btn.textContent = '⏸';
+        label.textContent = '正在朗读故事中… 🌙';
+      }
+    } else {
+      label.textContent = '您的浏览器不支持语音朗读功能';
+    }
+  }
+
+  function updateRate() {
+    if (utterance && isSpeaking) {
+      window.speechSynthesis.cancel();
+      isSpeaking = false;
+      isPaused = false;
+      document.getElementById('playBtn').textContent = '▶';
+      document.getElementById('audioLabel').textContent = '语速已更新，点击重新播放 ✨';
+    }
+  }
+
+  // 预加载语音列表
+  window.speechSynthesis.onvoiceschanged = function() {
+    window.speechSynthesis.getVoices();
+  };
+</script>
+</body>
+</html>
